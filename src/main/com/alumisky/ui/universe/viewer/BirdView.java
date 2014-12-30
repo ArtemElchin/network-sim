@@ -59,7 +59,7 @@ public class BirdView extends JPanel {
         Dimension viewSize = universeViewer.getSize();
         Dimension parentSize = universeView.getWorldDimension();
         
-        renderer.setScale((double) size.width / (viewFactor * parentSize.width));
+        renderer.setScale(((double) size.width/(viewSize.width*viewFactor)), ((double)size.height/(viewSize.height*viewFactor)));
 
 
         double scale = 1.0;
