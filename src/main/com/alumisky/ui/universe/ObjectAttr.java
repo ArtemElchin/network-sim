@@ -18,7 +18,7 @@ public class ObjectAttr implements Attributes {
     private Point position = new Point(20, 30);
 
     protected int width  = 80;
-    protected int height = 30;
+    protected int height = 60;
 
     public ObjectAttr(int width, int height) {
 	this.width = width;
