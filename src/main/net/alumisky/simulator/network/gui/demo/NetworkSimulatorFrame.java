@@ -27,15 +27,15 @@ import net.alumisky.simulator.network.NetworkEngine;
 import net.alumisky.simulator.network.NetworkID;
 import net.alumisky.simulator.network.demo.ClientPeerStrategy;
 import net.alumisky.simulator.network.demo.ServerPeerStrategy;
+import net.alumisky.simulator.network.gui.AbstractNetworkObject;
 import net.alumisky.simulator.network.gui.PeerUniverseObject;
-import net.alumisky.simulator.network.gui.renderer.DefaultPeerRenderer;
 import net.alumisky.simulator.network.impl.NetworkSimulator;
-
 
 /**
  *
  * @author Artem.Elchin
  */
+
 class RendererName implements Renderer<PeerUniverseObject> {
 
         public void render(Graphics g, PeerUniverseObject object, Attributes view) {
@@ -79,7 +79,9 @@ class RendererName implements Renderer<PeerUniverseObject> {
             
         }
        
-    }
+}
+
+
 public class NetworkSimulatorFrame extends JFrame {
 
     public static final int SIZE = 500;
@@ -100,19 +102,21 @@ public class NetworkSimulatorFrame extends JFrame {
         engine.registerPeer(netID, NetworkSimulator.createPeer(new ClientPeerStrategy()));
 
         // ---------------------------------------------
-      // Universe world = UniverseFactory.createDefaultUniverse();
+        // Universe world = UniverseFactory.createDefaultUniverse();
         view = UniverseFactory.createUniverseView(engine.getUniverse());
         panel = new UniverseViewer(view);
-         
+
         panel.addRenderer(PeerUniverseObject.TYPE, new RendererName());
-          for(int i=0;i<engine.getUniverse().getObjects().size();i++)
-        view.addAttributes(engine.getUniverse().getObject(i),new ObjectAttr(new Point(0, 0)));
+        for (int i = 0; i < engine.getUniverse().getObjects().size(); i++) {
+            view.addAttributes(engine.getUniverse().getObject(i), new ObjectAttr(new Point(0, 0)));
+        }
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(BorderLayout.CENTER, panel);
 
         setSize(new Dimension(SIZE, SIZE));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
 
     public static void main(String[] args) {
         NetworkSimulatorFrame frame = new NetworkSimulatorFrame();
