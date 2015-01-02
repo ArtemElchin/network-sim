@@ -27,33 +27,34 @@ import net.alumisky.simulator.network.NetworkEngine;
 import net.alumisky.simulator.network.NetworkID;
 import net.alumisky.simulator.network.demo.ClientPeerStrategy;
 import net.alumisky.simulator.network.demo.ServerPeerStrategy;
+import net.alumisky.simulator.network.gui.AbstractNetworkObject;
 import net.alumisky.simulator.network.gui.PeerUniverseObject;
-import net.alumisky.simulator.network.gui.renderer.DefaultPeerRenderer;
 import net.alumisky.simulator.network.impl.NetworkSimulator;
-
 
 /**
  *
  * @author Artem.Elchin
  */
 class RendererName implements Renderer {
-
-        public void render(Graphics g, UniverseObject object, Attributes view) {
-            g.setFont(new Font("TimesRoman", Font.BOLD, 16)); 
-            g.setColor(Color.WHITE);
-            Rectangle r = view.getObjectRectangle();
-            g.fillRect(r.x, r.y, r.width, r.height);
-            g.setColor(Color.BLACK);
-             FontMetrics fm = g.getFontMetrics();
-             String s="Name";
-            int totalWidth = (fm.stringWidth(s) * 2) + 4;
-            int x = (int) ((r.getWidth() - totalWidth) )+fm.stringWidth(s)/2;
-            int y=(int) (((r.getHeight() - fm.getHeight()) / 2) + fm.getAscent());
-            g.drawString("Name", r.x+x, r.y+y );
-            g.drawRect(r.x, r.y, r.width, r.height);
-            
-        }
+    final Font titleFont = new Font("TimesRoman", Font.BOLD, 16);
+    
+    @Override
+    public void render(Graphics g, UniverseObject object, Attributes view) {
+        g.setFont(titleFont);
+        g.setColor(Color.WHITE);
+        Rectangle r = view.getObjectRectangle();
+        g.fillRect(r.x, r.y, r.width, r.height);        
+        g.setColor(Color.BLACK);
+        FontMetrics fm = g.getFontMetrics();
+        String title = ((AbstractNetworkObject)object).getName();
+        int totalWidth = (fm.stringWidth(title) * 2) + 4;
+        int x = (int) ((r.getWidth() - totalWidth)) + fm.stringWidth(title) / 2;
+        int y = (int) (((r.getHeight() - fm.getHeight()) / 2) + fm.getAscent());
+        g.drawString(title, r.x + x, r.y + y);
+        g.drawRect(r.x, r.y, r.width, r.height);
     }
+}
+
 public class NetworkSimulatorFrame extends JFrame {
 
     public static final int SIZE = 500;
@@ -74,13 +75,14 @@ public class NetworkSimulatorFrame extends JFrame {
         engine.registerPeer(netID, NetworkSimulator.createPeer(new ClientPeerStrategy()));
 
         // ---------------------------------------------
-      // Universe world = UniverseFactory.createDefaultUniverse();
+        // Universe world = UniverseFactory.createDefaultUniverse();
         view = UniverseFactory.createUniverseView(engine.getUniverse());
         panel = new UniverseViewer(view);
-         
+
         panel.addRenderer(PeerUniverseObject.TYPE, new RendererName());
-          for(int i=0;i<engine.getUniverse().getObjects().size();i++)
-        view.addAttributes(engine.getUniverse().getObject(i),new ObjectAttr(new Point(0, 0)));
+        for (int i = 0; i < engine.getUniverse().getObjects().size(); i++) {
+            view.addAttributes(engine.getUniverse().getObject(i), new ObjectAttr(new Point(0, 0)));
+        }
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(BorderLayout.CENTER, panel);
 
