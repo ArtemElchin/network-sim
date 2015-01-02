@@ -36,23 +36,49 @@ import net.alumisky.simulator.network.impl.NetworkSimulator;
  *
  * @author Artem.Elchin
  */
-class RendererName implements Renderer {
+class RendererName implements Renderer<PeerUniverseObject> {
 
-        public void render(Graphics g, UniverseObject object, Attributes view) {
-            g.setFont(new Font("TimesRoman", Font.BOLD, 16)); 
+        public void render(Graphics g, PeerUniverseObject object, Attributes view) {
+            
+            int fontSize=16;
+            g.setFont(new Font("TimesRoman", Font.BOLD, fontSize)); 
             g.setColor(Color.WHITE);
             Rectangle r = view.getObjectRectangle();
             g.fillRect(r.x, r.y, r.width, r.height);
             g.setColor(Color.BLACK);
              FontMetrics fm = g.getFontMetrics();
-             String s="Name";
-            int totalWidth = (fm.stringWidth(s) * 2) + 4;
-            int x = (int) ((r.getWidth() - totalWidth) )+fm.stringWidth(s)/2;
-            int y=(int) (((r.getHeight() - fm.getHeight()) / 2) + fm.getAscent());
-            g.drawString("Name", r.x+x, r.y+y );
+             String s=object.getName()+"dsdasa";
+             
+            int totalWidth = fm.stringWidth(s);
+            
+            
+            
+            if(totalWidth<=r.width ){
+            int x = (int) (((r.width - totalWidth) )/4)+3;
+            int y=(int) (((r.height - fm.getHeight()) / 2) + fm.getAscent());
+            
+            g.drawString(s, r.x+x, r.y+y );
             g.drawRect(r.x, r.y, r.width, r.height);
+            }
+            else {
+                while(totalWidth+2>r.width && fontSize!=1)
+                {
+                    fontSize--;
+                    g.setFont(new Font("TimesRoman", Font.BOLD, fontSize));
+                    FontMetrics fn = g.getFontMetrics();
+                    totalWidth = fn.stringWidth(s);
+                 }
+            FontMetrics fn = g.getFontMetrics();
+            int x = ((int) ((r.width - totalWidth) )/4)+2;
+            int y=(int) (((r.height - fn.getHeight()) / 2) + fn.getAscent());
+            
+            g.drawString(s, r.x+x, r.y+y );
+            g.drawRect(r.x, r.y, r.width, r.height);
+                
+            }
             
         }
+       
     }
 public class NetworkSimulatorFrame extends JFrame {
 
