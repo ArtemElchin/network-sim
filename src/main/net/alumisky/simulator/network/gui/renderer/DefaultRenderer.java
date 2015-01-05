@@ -12,7 +12,6 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.geom.RoundRectangle2D;
 import net.alumisky.simulator.network.gui.PeerUniverseObject;
 /**
  *
@@ -21,45 +20,126 @@ import net.alumisky.simulator.network.gui.PeerUniverseObject;
 public class DefaultRenderer implements Renderer<PeerUniverseObject>{
     public void render(Graphics g, PeerUniverseObject object, Attributes view) {
             
+            final boolean multilineSupport = true;
             int fontSize=16;
             g.setFont(new Font("TimesRoman", Font.BOLD, fontSize)); 
             g.setColor(Color.WHITE);
             Rectangle r = view.getObjectRectangle();
             
-            g.fillRect(r.x, r.y, r.width, r.height);
-            g.setColor(Color.BLACK);
             
-             FontMetrics fm = g.getFontMetrics();
-             String s=object.getName()+"dsdasa";
+            
              
-            int totalWidth = fm.stringWidth(s);
-  
-            if(totalWidth>r.width) {
-               int lengthOneSymbol=(totalWidth/s.length());
+             String s=object.getName()+"dd gfdgfs fsfcsds";
+             
+           
+            if(multilineSupport){
+                r.height=r.height*2;
+                g.fillRect(r.x, r.y, r.width, r.height);
+            g.setColor(Color.BLACK);
+                 renderMultiline(g,s,r);
+            }
+            else{
+           g.fillRect(r.x, r.y, r.width, r.height);
+            g.setColor(Color.BLACK);
+            renderOneLine(g,s,r);
+            }
+            
+        }
+    public void renderOneLine(Graphics g, String name, Rectangle r)
+    {
+        
+          FontMetrics fm = g.getFontMetrics();
+        
+        int totalWidth = fm.stringWidth(name);
+        
+          if(totalWidth>r.width) {
+               int lengthOneSymbol=(totalWidth/name.length());
                
             
                int sizeDots =fm.stringWidth("...");
                int numbSymbol=0;
                
-                System.out.println(lengthOneSymbol);
-               while(lengthOneSymbol+sizeDots+totalWidth/s.length()<r.width)
+                System.out.println(totalWidth/name.length());
+               while((lengthOneSymbol+sizeDots+(totalWidth/name.length())*2)<r.width)
                {
                    numbSymbol++;
-                   lengthOneSymbol+=totalWidth/s.length();
+                   lengthOneSymbol+=totalWidth/name.length();
                 }
                
-                s=(s.substring(0, numbSymbol))+"...";
-                totalWidth = fm.stringWidth(s);
+                name=(name.substring(0, numbSymbol))+"...";
+                totalWidth = fm.stringWidth(name);
             }
             
             int x = (int) (((r.width - totalWidth) )/4)+3;
             int y=(int) (((r.height - fm.getHeight()) / 2) + fm.getAscent());
             
-            g.drawString(s, r.x+x, r.y+y );
-            g.drawRoundRect(r.x, r.y, r.width, r.height,30,30);
+            g.drawString(name, r.x+x, r.y+y );
+            g.drawRoundRect(r.x, r.y, r.width, r.height,15,15);
             
         
+    }
+    public void renderMultiline(Graphics g, String name, Rectangle r)
+    {
+        FontMetrics fm = g.getFontMetrics();
+        
+        int totalWidth = fm.stringWidth(name);
+        
+        
+        
+        String firstLine="", secondLine="", tmpName=name;
+        
+        if(totalWidth>r.width){
+            int gap=0;
+            while(totalWidth>r.width)
+            {
+                gap=tmpName.lastIndexOf(' ');
+                firstLine=tmpName.substring(0, gap);
+               
+                totalWidth=fm.stringWidth(firstLine);
+                tmpName=firstLine;
+                
+            }
+            secondLine=name.substring(gap+1, name.length());
             
+            
+            
+            int x = (int) (((r.width - totalWidth) )/4)+3;
+            int y=(r.height-(fm.getHeight()*2))/2+ fm.getAscent()-2;
+            
+            g.drawString(firstLine, r.x+x, r.y+y );
+            g.drawRoundRect(r.x, r.y, r.width, r.height,30,30);
+            
+            
+            
+           // System.out.println(firstLine+"  "+secondLine);
+            
+            
+             totalWidth = fm.stringWidth(secondLine);
+        
+          if(totalWidth>r.width) {
+               int lengthOneSymbol=(totalWidth/secondLine.length());
+               
+            
+               int sizeDots =fm.stringWidth("...");
+               int numbSymbol=0;
+               
+               // System.out.println(lengthOneSymbol);
+               while(lengthOneSymbol+sizeDots+(totalWidth/secondLine.length())*2<r.width)
+               {
+                   numbSymbol++;
+                   lengthOneSymbol+=totalWidth/secondLine.length();
+                }
+               
+                secondLine=(secondLine.substring(0, numbSymbol))+"...";
+                totalWidth = fm.stringWidth(secondLine);
+            }
+            
+            x = (int) (((r.width - totalWidth) )/4)+3;
+            y=((r.height-((fm.getHeight())*2))/2+ fm.getAscent()*2)+2;
+            
+            g.drawString(secondLine, r.x+x, r.y+y );
+            //System.out.println(fm.getDescent());
         }
+    }
     
 }

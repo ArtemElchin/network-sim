@@ -46,7 +46,7 @@ class RendererName implements Renderer<PeerUniverseObject> {
             g.fillRect(r.x, r.y, r.width, r.height);
             g.setColor(Color.BLACK);
              FontMetrics fm = g.getFontMetrics();
-             String s=object.getName()+"dsdasa";
+             String s=object.getName()+"d\nsdasa";
              
             int totalWidth = fm.stringWidth(s);
             
@@ -102,7 +102,7 @@ public class NetworkSimulatorFrame extends JFrame {
 
         engine.registerPeer(netID, NetworkSimulator.createPeer(new ServerPeerStrategy()));
         engine.registerPeer(netID, NetworkSimulator.createPeer(new ClientPeerStrategy()));
-
+       
         // ---------------------------------------------
         // Universe world = UniverseFactory.createDefaultUniverse();
         view = UniverseFactory.createUniverseView(engine.getUniverse());
