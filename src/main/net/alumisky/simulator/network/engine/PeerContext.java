@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
 import net.alumisky.simulator.network.NetworkID;
 import net.alumisky.simulator.network.PeerID;
 import net.alumisky.simulator.network.PeerNetwork;
@@ -32,23 +33,23 @@ class PeerContext {
     /**
      * Peer.
      */
-    private Peer peer;
+    private final Peer peer;
     /**
      * Peer network.
      */
-    private Network network;
+    private final Network network;
     /**
      * Peer incoming messages.
      */
-    private Queue<Message> messages;
+    private final Queue<Message> messages;
     /**
      * Map of port listeners.
      */
-    private Map<Integer, Boolean> listeners;
+    private final Map<Integer, Boolean> listeners;
     /**
      * Peer connections.
      */
-    private Map<Integer, PipeContext> connections;
+    private final Map<Integer, PipeContext> connections;
 
     /**
      * Constructs default context.
@@ -58,9 +59,9 @@ class PeerContext {
     public PeerContext(Network network, Peer peer) {
         this.network = network;
         this.peer = peer;
-        messages = new ConcurrentLinkedQueue<Message>();
-        listeners = new ConcurrentHashMap<Integer, Boolean>();
-        connections = new ConcurrentHashMap<Integer, PipeContext>();
+        messages = new ConcurrentLinkedQueue<>();
+        listeners = new ConcurrentHashMap<>();
+        connections = new ConcurrentHashMap<>();
     }
 
     public Network getNetwork() {

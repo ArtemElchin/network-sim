@@ -17,5 +17,4 @@ public class DemoEvent extends AbstractEvent {
     public DemoEvent() {
         super(null);
     }
-
 }
