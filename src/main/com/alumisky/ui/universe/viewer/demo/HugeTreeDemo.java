@@ -98,11 +98,11 @@ class UniverseFrame2 extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-    final int WORLD_WIDTH = 1200;
-    final int WORLD_HEIGHT = 1200;
+    final int WORLD_WIDTH = 200;
+    final int WORLD_HEIGHT = 200;
     
      protected void generate() {
-          final int OBJECTS = 100;
+          final int OBJECTS = 22;
           
           for(int i=0; i<OBJECTS; i++) {
               ObjectA a = new ObjectA();

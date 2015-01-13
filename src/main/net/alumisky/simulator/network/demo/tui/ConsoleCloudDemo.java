@@ -30,7 +30,7 @@ public class ConsoleCloudDemo {
     public static void main(String[] args) {
         System.out.println("Starting simulation");
         NetworkEngine engine = NetworkSimulator.createNetworkEngine();
-        Network network = NetworkSimulator.createNetwork("basicString", engine);
+           Network network = NetworkSimulator.createNetwork("basicString", engine);
 
         NetworkID netID = network.getID();
         engine.registerNetwork(network);

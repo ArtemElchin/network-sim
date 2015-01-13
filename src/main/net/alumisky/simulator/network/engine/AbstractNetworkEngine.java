@@ -93,7 +93,7 @@ public abstract class AbstractNetworkEngine extends AbstractRunnableService impl
      * {@inheritDoc}
      */
     public void registerPeer(NetworkID netID, Peer peer) {
-        if (null == netID) {
+            if (null == netID) {
             throw new IllegalArgumentException("Network ID can not be null");
         } else if (null == peer) {
             throw new IllegalArgumentException("Peer can not be null");

@@ -15,6 +15,7 @@ import java.awt.Rectangle;
  * @author Artem.Elchin
  */
 public interface Attributes {
+     boolean multilineSupport=false;
 
     /**
      *

@@ -21,4 +21,8 @@ public class UniverseFactory {
     public static UniverseView createUniverseView(Universe universe) {
         return new DefaultUniverseViewImpl(universe);
     }
+
+    public static UniverseView createUniverseView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
