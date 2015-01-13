@@ -9,7 +9,7 @@ package com.alumisky.ui.universe;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-
+import java.awt.geom.RoundRectangle2D;
 /**
  *
  * @author Artem.Elchin
@@ -41,4 +41,7 @@ public interface Attributes {
      * @return
      */
     Rectangle getObjectRectangle();
+    
+    
+    RoundRectangle2D getObjectRoundRectangle2D();
 }

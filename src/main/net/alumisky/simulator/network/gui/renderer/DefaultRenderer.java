@@ -7,6 +7,7 @@ package net.alumisky.simulator.network.gui.renderer;
 
 import com.alumisky.ui.universe.Attributes;
 import com.alumisky.ui.universe.Renderer;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -14,6 +15,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.geom.RoundRectangle2D;
 import net.alumisky.simulator.network.gui.PeerUniverseObject;
 import javax.swing.event.ListSelectionEvent;
 /**
@@ -23,47 +25,54 @@ import javax.swing.event.ListSelectionEvent;
 public class DefaultRenderer implements Renderer<PeerUniverseObject>{
     public void render(Graphics g, PeerUniverseObject object, Attributes view) {
             Graphics2D g1 = (Graphics2D) g;
-            
-            int fontSize=16;
+            final int arcWidth=25, arcHeight=25;
+            final int fontSize=16;
             
            
             g.setFont(new Font(null, Font.BOLD, fontSize)); 
             g.setColor(Color.WHITE);
             
-            Rectangle r = view.getObjectRectangle();
+            RoundRectangle2D r = view.getObjectRoundRectangle2D();
             
             RenderingHints rh = new RenderingHints(
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
             g1.setRenderingHints(rh);
-        
-             String s=object.getName()+"dd gfdgfs fsfcsds";
+             
+           
+            String s=object.getName()+"dd gfdgfs fsfcsds";
              
            
             if(view.multilineSupport){
                 
-                g.fillRect(r.x, r.y, r.width, r.height);
+                g.fillRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
                 g.setColor(Color.BLACK);
                 renderMultiline(g,s,r);
                  
             }
             else{
-                g.fillRect(r.x, r.y, r.width, r.height);
+                g.fillRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
                 g.setColor(Color.BLACK);
                 renderOneLine(g,s,r);
             
             }
-            
+              
+             // g1.setStroke(new BasicStroke(3));
+             
+            // g.fillRect(r.x-2, r.y-2, r.width+4, r.height+4);
+            //  g.setColor(Color.BLUE);
+             // g1.setStroke(new BasicStroke(3));
+            //g.drawRoundRect((int)r.getX()-2,(int) r.getY()-2, (int)r.getWidth()+4, (int)r.getHeight()+4,arcWidth+2,arcHeight+2);
         }
     
-    public void renderOneLine(Graphics g, String name, Rectangle r)
+    public void renderOneLine(Graphics g, String name, RoundRectangle2D r)
     {
-        
+        final int arcWidth=25, arcHeight=25;
           FontMetrics fm = g.getFontMetrics();
         
         int totalWidth = fm.stringWidth(name);
         
-          if(totalWidth>r.width) {
+          if(totalWidth>r.getWidth()) {
                int lengthOneSymbol=(totalWidth/name.length());
                
             
@@ -71,7 +80,7 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                int numbSymbol=0;
                
                
-               while((lengthOneSymbol+sizeDots+(totalWidth/name.length())*2)<r.width)
+               while((lengthOneSymbol+sizeDots+(totalWidth/name.length())*2)<r.getWidth())
                {
                    numbSymbol++;
                    lengthOneSymbol+=totalWidth/name.length();
@@ -81,18 +90,18 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                 totalWidth = fm.stringWidth(name);
             }
             
-            int x = (int) (((r.width - totalWidth) )/4)+3;
-            int y=(int) (((r.height - fm.getHeight()) / 2) + fm.getAscent());
+            int x = (int) (((r.getWidth() - totalWidth) )/4)+3;
+            int y=(int) (((r.getHeight()- fm.getHeight()) / 2) + fm.getAscent());
             
-            g.drawString(name, r.x+x, r.y+y );
+            g.drawString(name, (int)r.getX()+x, (int)r.getY()+y );
            
-            g.drawRoundRect(r.x, r.y, r.width, r.height,15,15);
+            g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
           
             
         
     }
     
-    public void renderMultiline(Graphics g, String name, Rectangle r)
+    public void renderMultiline(Graphics g, String name, RoundRectangle2D r)
     {
         final int arcWidth=25, arcHeight=25;
         FontMetrics fm = g.getFontMetrics();
@@ -103,9 +112,9 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
         
         String firstLine="", secondLine="", tmpName=name;
         
-        if(totalWidth>r.width){
+        if(totalWidth>r.getWidth()){
             int gap=0;
-            while(totalWidth>r.width)
+            while(totalWidth>r.getWidth())
             {
                 gap=tmpName.lastIndexOf(' ');
                 firstLine=tmpName.substring(0, gap);
@@ -118,10 +127,10 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
             
             
             
-            int x = (int) (((r.width - totalWidth) )/4)+3;
-            int y=(r.height-(fm.getHeight()*2))/2+ fm.getAscent()-2;
+            int x = (int) (((r.getWidth() - totalWidth) )/4)+3;
+            int y=(int) ((r.getHeight()-(fm.getHeight()*2))/2+ fm.getAscent()-2);
           
-            g.drawString(firstLine, r.x+x, r.y+y );
+            g.drawString(firstLine, (int)r.getX()+x, (int)r.getY()+y );
             
            
             
@@ -132,7 +141,7 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
             
              totalWidth = fm.stringWidth(secondLine);
         
-          if(totalWidth>r.width) {
+          if(totalWidth>r.getWidth()) {
                int lengthOneSymbol=(totalWidth/secondLine.length());
                
             
@@ -140,7 +149,7 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                int numbSymbol=0;
                
                // System.out.println(lengthOneSymbol);
-               while(lengthOneSymbol+sizeDots+(totalWidth/secondLine.length())*2<r.width)
+               while(lengthOneSymbol+sizeDots+(totalWidth/secondLine.length())*2<r.getWidth())
                {
                    numbSymbol++;
                    lengthOneSymbol+=totalWidth/secondLine.length();
@@ -150,15 +159,14 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                 totalWidth = fm.stringWidth(secondLine);
             }
             
-            x = (int) (((r.width - totalWidth) )/4)+3;
-            y=((r.height-((fm.getHeight())*2))/2+ fm.getAscent()*2)+2;
+            x = (int) (((r.getWidth() - totalWidth) )/4)+3;
+            y=(int) (((r.getHeight()-((fm.getHeight())*2))/2+ fm.getAscent()*2)+2);
             
-            g.drawString(secondLine, r.x+x, r.y+y );
+            g.drawString(secondLine, (int)r.getX()+x, (int)r.getY()+y );
             
-            g.drawRoundRect(r.x, r.y, r.width, r.height,arcWidth,arcHeight);
+            g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
             
-            //g.setColor(Color.LIGHT_GRAY);
-            //g.drawRoundRect(r.x-2, r.y-2, r.width+4, r.height+4,30,30);
+          
             
         }
     }

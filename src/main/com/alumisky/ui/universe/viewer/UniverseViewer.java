@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
 import java.awt.Graphics2D;
-
+import java.awt.geom.RoundRectangle2D;
 /**
  *
  * @author Artem.Elchin
@@ -110,11 +110,17 @@ public class UniverseViewer extends JPanel {
         for (UniverseObject object : draggedObjects) {
             g.setColor(Color.BLUE);
             g.setStroke(new BasicStroke(2));
-            Rectangle rect = universeView.getAttributes(object).getObjectRectangle();
-            g.drawRect(rect.x,
-                    rect.y,
-                    rect.width,
-                    rect.height);
+            RoundRectangle2D rect = universeView.getAttributes(object).getObjectRoundRectangle2D();
+            
+            g.drawRoundRect((int)rect.getX(),
+                    (int)rect.getY(),
+                    (int) rect.getWidth(),
+                    (int)rect.getHeight(),
+                    (int)rect.getArcWidth(),
+                    (int)rect.getArcHeight());
+             g.setColor(Color.CYAN);
+              g.setStroke(new BasicStroke(3));
+            g.drawRoundRect((int)rect.getX()-2,(int) rect.getY()-2, (int)rect.getWidth()+4, (int)rect.getHeight()+4,(int)rect.getArcWidth()+2,(int)rect.getArcHeight()+2);
         }
 
         super.paintComponents(g);

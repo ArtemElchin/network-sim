@@ -9,6 +9,7 @@ package com.alumisky.ui.universe;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.RoundRectangle2D;
 
 /**
  *
@@ -19,6 +20,7 @@ public class ObjectAttr implements Attributes {
 
     protected int width  = 80;
     protected int height = 30;
+    protected int arc=25;
     
     public ObjectAttr(int width, int height) {
 	this.width = width;
@@ -44,4 +46,8 @@ public class ObjectAttr implements Attributes {
     public Rectangle getObjectRectangle() {
 	return new Rectangle(position.x, position.y, width, height);
     }
+    public RoundRectangle2D getObjectRoundRectangle2D() {
+	return  new RoundRectangle2D.Double(position.x, position.y, width, height, arc, arc);
+    }
+    
 }
