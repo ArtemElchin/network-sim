@@ -17,7 +17,8 @@ import net.alumisky.simulator.network.PeerID;
 public class PeerUniverseObject extends AbstractNetworkObject<PeerID>
     implements UniverseObject {
     public static final String TYPE = "network.peer";
-
+    public final boolean disableMode=false;
+    public final boolean errorMode=false;
     private Peer peer;
 
     public PeerUniverseObject(Peer peer) {

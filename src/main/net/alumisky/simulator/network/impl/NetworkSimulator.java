@@ -71,7 +71,7 @@ public final class NetworkSimulator {
      * @return Peer instance
      */
     public static Peer createPeer(PeerStrategy strategy) {
-        return new PeerImpl(new PeerIdentifier(nextPeerID.incrementAndGet()), strategy);
+            return new PeerImpl(new PeerIdentifier(nextPeerID.incrementAndGet()), strategy);
     }
 
     /**
