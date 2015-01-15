@@ -15,7 +15,7 @@ import java.awt.geom.RoundRectangle2D;
  * @author Artem.Elchin
  */
 public interface Attributes {
-     boolean multilineSupport=false;
+     boolean multilineSupport=true;
 
     /**
      *

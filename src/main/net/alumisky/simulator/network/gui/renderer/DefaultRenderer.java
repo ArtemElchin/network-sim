@@ -13,11 +13,10 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 import net.alumisky.simulator.network.gui.PeerUniverseObject;
-import javax.swing.event.ListSelectionEvent;
+
 /**
  *
  * @author Maryan
@@ -25,7 +24,6 @@ import javax.swing.event.ListSelectionEvent;
 public class DefaultRenderer implements Renderer<PeerUniverseObject>{
     public void render(Graphics g, PeerUniverseObject object, Attributes view) {
             Graphics2D g1 = (Graphics2D) g;
-            final int arcWidth=25, arcHeight=25;
             final int fontSize=16;
             
            
@@ -40,12 +38,16 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
             g1.setRenderingHints(rh);
              
            
-            String s=object.getName()+"dd gfdgfs fsfcsds";
+            //String s=object.getName()+"dd gfdgfs fsfcsds";
              
-           
-            if(view.multilineSupport){
+             String s="fdd aaaa";
+             
+             FontMetrics fm = g.getFontMetrics();
+             int totalWidth = fm.stringWidth(s);
+             
+            if(view.multilineSupport && s.contains(" ") && totalWidth>r.getWidth()){
                 
-                g.fillRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
+                g.fillRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),(int)r.getArcWidth(),(int)r.getArcHeight());
               
                 
                 g.setColor(Color.BLACK);
@@ -54,26 +56,20 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                  
             }
             else{
-                g.fillRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
+                g.fillRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),(int)r.getArcWidth(),(int)r.getArcHeight());
                 
                 g.setColor(Color.BLACK);
                 renderOneLine(g,s,r,object);
             
             }
               
-             // g1.setStroke(new BasicStroke(3));
-             
-            // g.fillRect(r.x-2, r.y-2, r.width+4, r.height+4);
-            //  g.setColor(Color.BLUE);
-             // g1.setStroke(new BasicStroke(3));
-            //g.drawRoundRect((int)r.getX()-2,(int) r.getY()-2, (int)r.getWidth()+4, (int)r.getHeight()+4,arcWidth+2,arcHeight+2);
             
         }
     
     public void renderOneLine(Graphics g, String name, RoundRectangle2D r, PeerUniverseObject object)
     {
-        final int arcWidth=25, arcHeight=25;
-          FontMetrics fm = g.getFontMetrics();
+        
+        FontMetrics fm = g.getFontMetrics();
         Graphics2D g1 = (Graphics2D) g;
         int totalWidth = fm.stringWidth(name);
         
@@ -95,15 +91,15 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                 totalWidth = fm.stringWidth(name);
             }
             
-            int x = (int) (((r.getWidth() - totalWidth) )/4)+3;
+            int x = 5;
             int y=(int) (((r.getHeight()- fm.getHeight()) / 2) + fm.getAscent());
             
-            if(!object.errorMode){
+            if(object.errorMode){
                 
                 g.setColor(Color.red);
                 g1.setStroke(new BasicStroke(2));
                 g.drawString(name, (int)r.getX()+x, (int)r.getY()+y );
-                g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
+                g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),(int)r.getArcWidth(),(int)r.getArcHeight());
                 g.setColor(Color.PINK);
                 
                
@@ -119,13 +115,13 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                 g1.fill(dashedStroke.createStrokedShape(r));
                
                 
-               // g.drawRoundRect((int)r.getX()-2,(int) r.getY()-2, (int)r.getWidth()+4, (int)r.getHeight()+4,(int)r.getArcWidth()+2,(int)r.getArcHeight()+2);
+              
             }
             else{
             
         
                g.drawString(name, (int)r.getX()+x, (int)r.getY()+y );
-               g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
+               g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),(int)r.getArcWidth(),(int)r.getArcHeight());
               
             }
         
@@ -133,11 +129,11 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
     
     public void renderMultiline(Graphics g, String name, RoundRectangle2D r, PeerUniverseObject object)
     {
-        final int arcWidth=25, arcHeight=25;
+        
         FontMetrics fm = g.getFontMetrics();
         Graphics2D g1 = (Graphics2D) g;
         int totalWidth = fm.stringWidth(name);
-        
+        int totalWidthFirstStr, totalWidthSecondStr;
         
         
         String firstLine="", secondLine="", tmpName=name;
@@ -151,52 +147,50 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                
                 totalWidth=fm.stringWidth(firstLine);
                 tmpName=firstLine;
+               
                 
             }
             secondLine=name.substring(gap+1, name.length());
+            System.out.println("sdf"+secondLine);
+            int x,y;
             
-            
-            
-            int x = (int) (((r.getWidth() - totalWidth) )/4)+3;
-            int y=(int) ((r.getHeight()-(fm.getHeight()*2))/2+ fm.getAscent()-2);
-          
-            g.drawString(firstLine, (int)r.getX()+x, (int)r.getY()+y );
-            
-           
-            
-            
-            
-           // System.out.println(firstLine+"  "+secondLine);
-            
-            
-             totalWidth = fm.stringWidth(secondLine);
+       
+             totalWidthFirstStr = fm.stringWidth(firstLine);
+             totalWidthSecondStr = fm.stringWidth(secondLine);
         
-          if(totalWidth>r.getWidth()) {
-               int lengthOneSymbol=(totalWidth/secondLine.length());
-               
-            
+            if(totalWidthSecondStr>r.getWidth()) {
+               int lengthOneSymbol=(totalWidthSecondStr/secondLine.length());
                int sizeDots =fm.stringWidth("...");
                int numbSymbol=0;
                
-               // System.out.println(lengthOneSymbol);
-               while(lengthOneSymbol+sizeDots+(totalWidth/secondLine.length())*2<r.getWidth())
+               
+               while(lengthOneSymbol+sizeDots+(totalWidthSecondStr/secondLine.length())*2<r.getWidth())
                {
                    numbSymbol++;
-                   lengthOneSymbol+=totalWidth/secondLine.length();
+                   lengthOneSymbol+=totalWidthSecondStr/secondLine.length();
                 }
                
                 secondLine=(secondLine.substring(0, numbSymbol))+"...";
-                totalWidth = fm.stringWidth(secondLine);
+                totalWidthSecondStr = fm.stringWidth(secondLine);
             }
             
-            x = (int) (((r.getWidth() - totalWidth) )/4)+3;
-            y=(int) (((r.getHeight()-((fm.getHeight())*2))/2+ fm.getAscent()*2)+2);
+            
               if(object.errorMode){
-                
+              
                 g.setColor(Color.red);
                 g1.setStroke(new BasicStroke(2));
-                g.drawString(name, (int)r.getX()+x, (int)r.getY()+y );
-                g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
+                
+                x = (int) 5;
+                y=(int) ((r.getHeight()-(fm.getHeight()*2))/2+ fm.getAscent()-2);
+          
+                g.drawString(firstLine, (int)r.getX()+x, (int)r.getY()+y );
+                
+                x = (int) 5;
+                y=(int) (((r.getHeight()-((fm.getHeight())*2))/2+ fm.getAscent()*2)+2);
+                
+                g.drawString(secondLine, (int)r.getX()+x, (int)r.getY()+y );
+                
+                g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),(int)r.getArcWidth(),(int)r.getArcHeight());
                 g.setColor(Color.PINK);
                 
                
@@ -205,22 +199,39 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
             
             }
             else if(object.disableMode){
+                
                 g.setColor(Color.LIGHT_GRAY);
-                g.drawString(name, (int)r.getX()+x, (int)r.getY()+y );
+                
+                x = 5;
+                y=(int) ((r.getHeight()-(fm.getHeight()*2))/2+ fm.getAscent()-2);
+          
+                g.drawString(firstLine, (int)r.getX()+x, (int)r.getY()+y );
+                
+                x = 5;
+                y=(int) (((r.getHeight()-((fm.getHeight())*2))/2+ fm.getAscent()*2)+2);
+                
+                g.drawString(secondLine, (int)r.getX()+x, (int)r.getY()+y );
+                
                 float dash[] = { 4};
                 BasicStroke dashedStroke=new BasicStroke(1, BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER,10, dash, 0);
                 g1.fill(dashedStroke.createStrokedShape(r));
+                
                 }
             else{
-            
+                
+                x = 5;
+                y=(int) ((r.getHeight()-(fm.getHeight()*2))/2+ fm.getAscent()-2);
+          
+                g.drawString(firstLine, (int)r.getX()+x, (int)r.getY()+y );
+                
+                x = 5;
+                y=(int) (((r.getHeight()-((fm.getHeight())*2))/2+ fm.getAscent()*2)+2);
         
-               g.drawString(name, (int)r.getX()+x, (int)r.getY()+y );
-               g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
+                g.drawString(secondLine, (int)r.getX()+x, (int)r.getY()+y );
+                g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),(int)r.getArcWidth(),(int)r.getArcHeight());
               
             }
-            //g.drawString(secondLine, (int)r.getX()+x, (int)r.getY()+y );
             
-           // g.drawRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),arcWidth,arcWidth);
             
           
             

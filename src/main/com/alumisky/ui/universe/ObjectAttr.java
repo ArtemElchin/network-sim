@@ -47,7 +47,7 @@ public class ObjectAttr implements Attributes {
 	return new Rectangle(position.x, position.y, width, height);
     }
     public RoundRectangle2D getObjectRoundRectangle2D() {
-	return  new RoundRectangle2D.Double(position.x, position.y, width, height, arc, arc);
+    	return  new RoundRectangle2D.Double(position.x, position.y, width, height, arc, arc);
     }
     
 }
