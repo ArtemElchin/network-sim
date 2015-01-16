@@ -38,14 +38,29 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
             g1.setRenderingHints(rh);
              
            
-            //String s=object.getName()+"dd gfdgfs fsfcsds";
+            
              
-             String s="fdd aaaa";
+             String s="fajafn";
+             //String s="BLJJJ";
+             //String s="fadfd fdadf fdafa daf";
+             //String s="fdafjafjdafdf fadfa fadfa fdaf";
+             //String s="fdafasfdafadfsdffsda";
+            // String s="JNLDJFJFNJSFf fsddfa fadf fa ";
+             //String s="BHKBJHSF SFJBLJSFFBSSJFB FJSNF";
+             //String s="fajaf fadfafdsafadfasf";
+             //String s="fda    ad  d fa dsf ";
+             String tmp;
              
              FontMetrics fm = g.getFontMetrics();
              int totalWidth = fm.stringWidth(s);
+             int tmpWidth=totalWidth;
+             int gap=s.indexOf(' ');
              
-            if(view.multilineSupport && s.contains(" ") && totalWidth>r.getWidth()){
+             if(gap!=-1){
+             tmp=s.substring(0, s.indexOf(' '));
+             tmpWidth=fm.stringWidth(tmp);
+             }
+            if(view.multilineSupport && s.contains(" ") && totalWidth>r.getWidth() && tmpWidth<r.getWidth() ){
                 
                 g.fillRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),(int)r.getArcWidth(),(int)r.getArcHeight());
               
@@ -57,7 +72,7 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
             }
             else{
                 g.fillRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),(int)r.getArcWidth(),(int)r.getArcHeight());
-                
+                System.out.println("fdsf");
                 g.setColor(Color.BLACK);
                 renderOneLine(g,s,r,object);
             
@@ -72,22 +87,23 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
         FontMetrics fm = g.getFontMetrics();
         Graphics2D g1 = (Graphics2D) g;
         int totalWidth = fm.stringWidth(name);
-        
+        String strTmp="";
           if(totalWidth>r.getWidth()) {
-               int lengthOneSymbol=(totalWidth/name.length());
+               
                
             
                int sizeDots =fm.stringWidth("...");
-               int numbSymbol=0;
+               int i=0;
                
                
-               while((lengthOneSymbol+sizeDots+(totalWidth/name.length())*2)<r.getWidth())
+               while(sizeDots+(totalWidth)+7>r.getWidth())
                {
-                   numbSymbol++;
-                   lengthOneSymbol+=totalWidth/name.length();
+                  strTmp=name.substring(0, (name.length())-i);
+                   i++;
+                   totalWidth=fm.stringWidth(strTmp);
                 }
                
-                name=(name.substring(0, numbSymbol))+"...";
+                name=(strTmp)+"...";
                 totalWidth = fm.stringWidth(name);
             }
             
@@ -140,7 +156,7 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
         
         if(totalWidth>r.getWidth()){
             int gap=0;
-            while(totalWidth>r.getWidth())
+            while(totalWidth+7>r.getWidth())
             {
                 gap=tmpName.lastIndexOf(' ');
                 firstLine=tmpName.substring(0, gap);
@@ -155,22 +171,27 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
             int x,y;
             
        
-             totalWidthFirstStr = fm.stringWidth(firstLine);
+            // totalWidthFirstStr = fm.stringWidth(firstLine);
              totalWidthSecondStr = fm.stringWidth(secondLine);
         
             if(totalWidthSecondStr>r.getWidth()) {
-               int lengthOneSymbol=(totalWidthSecondStr/secondLine.length());
+               
                int sizeDots =fm.stringWidth("...");
-               int numbSymbol=0;
+              
+               int i=0;
+               
+               String strTmp="";
+                
                
                
-               while(lengthOneSymbol+sizeDots+(totalWidthSecondStr/secondLine.length())*2<r.getWidth())
+               while(sizeDots+(totalWidthSecondStr)+7>r.getWidth())
                {
-                   numbSymbol++;
-                   lengthOneSymbol+=totalWidthSecondStr/secondLine.length();
+                  strTmp=secondLine.substring(0, (secondLine.length())-i);
+                   i++;
+                   totalWidthSecondStr=fm.stringWidth(strTmp);
                 }
                
-                secondLine=(secondLine.substring(0, numbSymbol))+"...";
+                secondLine=(strTmp)+"...";
                 totalWidthSecondStr = fm.stringWidth(secondLine);
             }
             
