@@ -6,8 +6,8 @@
  */
 package net.alumisky.simulator.network.gui.renderer;
 
+import com.alumisky.ui.universe.AbstractUniverseRenderer;
 import com.alumisky.ui.universe.Attributes;
-import com.alumisky.ui.universe.Renderer;
 import java.awt.Graphics;
 import net.alumisky.simulator.network.gui.GatewayUniverseObject;
 
@@ -15,7 +15,7 @@ import net.alumisky.simulator.network.gui.GatewayUniverseObject;
  *
  * @author Renat Gilmanov
  */
-public class DefaultGatewayRenderer implements Renderer<GatewayUniverseObject> {
+public class DefaultGatewayRenderer extends AbstractUniverseRenderer<GatewayUniverseObject> {
 
     @Override
     public void render(Graphics g, GatewayUniverseObject object, Attributes view) {

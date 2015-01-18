@@ -12,6 +12,7 @@ import com.alumisky.ui.universe.UniverseObject;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.Shape;
 
 /**
  *
@@ -34,5 +35,10 @@ public class BirdViewRenderer implements Renderer {
                 (int) (r.y * scaleHeight),
                 (int) (r.width * scaleWigth),
                 (int) (r.height * scaleHeight));
+    }
+
+    @Override
+    public Shape getObjectShape(UniverseObject object, Attributes attr) {
+        return attr.getObjectRectangle();
     }
 }

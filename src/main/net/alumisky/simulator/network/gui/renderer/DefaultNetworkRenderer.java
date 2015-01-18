@@ -6,8 +6,8 @@
  */
 package net.alumisky.simulator.network.gui.renderer;
 
+import com.alumisky.ui.universe.AbstractUniverseRenderer;
 import com.alumisky.ui.universe.Attributes;
-import com.alumisky.ui.universe.Renderer;
 import java.awt.Graphics;
 import net.alumisky.simulator.network.gui.NetworkUniverseObject;
 
@@ -15,7 +15,7 @@ import net.alumisky.simulator.network.gui.NetworkUniverseObject;
  *
  * @author Renat Gilmanov
  */
-public class DefaultNetworkRenderer implements Renderer<NetworkUniverseObject> {
+public class DefaultNetworkRenderer extends AbstractUniverseRenderer<NetworkUniverseObject> {
 
     @Override
     public void render(Graphics g, NetworkUniverseObject t, Attributes view) {

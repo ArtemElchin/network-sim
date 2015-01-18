@@ -29,7 +29,7 @@ public class PeerImpl implements Peer {
      * @param strategy peer strategy
      */
     public PeerImpl(PeerID id, PeerStrategy strategy) {
-        this(id, strategy, "peer-" + id.getUID());
+            this(id, strategy, "peer-" + id.getUID());
     }
 
     /**

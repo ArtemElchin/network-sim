@@ -42,8 +42,8 @@ public class UniverseViewer extends JPanel {
     protected UniverseView universeView = null;
     protected Rectangle selectionRect = null;
     protected UniverseObject draggedObject = null;
-    protected List<UniverseObject> draggedObjects = new ArrayList<UniverseObject>();
-    protected Map<String, Renderer> rendererMap = new HashMap<String, Renderer>();
+    protected List<UniverseObject> draggedObjects = new ArrayList<>();
+    protected Map<String, Renderer> rendererMap = new HashMap<>();
 
 
     public UniverseViewer(UniverseView universeView) {
@@ -53,6 +53,7 @@ public class UniverseViewer extends JPanel {
     /**
      * 
      * @param universeView 
+     * @param size 
      */
     public UniverseViewer(UniverseView universeView, Dimension size) {
         super();
@@ -90,14 +91,24 @@ public class UniverseViewer extends JPanel {
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, d.width, d.height);
 
+        for (UniverseObject object : draggedObjects) {        
+            universeView.getAttributes(object).setSelected(true);
+        }
+        
+        // draw all objects
         List<UniverseObject> objects = universeView.getObjects();
         for (UniverseObject object : objects) {
+            Attributes attributes = universeView.getAttributes(object);
             if (rendererMap.containsKey(object.getType())) {
                 Renderer renderer = (Renderer) rendererMap.get(object.getType());
-                renderer.render(g, object, universeView.getAttributes(object));
+                renderer.render(g, object, attributes);
             }
-        }
-
+            
+            // all temporary attributes like selection should be removed
+            attributes.clearTemporaryAttributes();
+        }       
+        
+        // draw selection region
         if (null != selectionPoint && null != draggedPoint) {
             g.setColor(Color.BLACK);
             Rectangle selection = getRect(draggedPoint, selectionPoint);
@@ -105,16 +116,6 @@ public class UniverseViewer extends JPanel {
                     selection.y,
                     selection.width,
                     selection.height);
-        }
-
-        for (UniverseObject object : draggedObjects) {
-            g.setColor(Color.BLUE);
-            g.setStroke(new BasicStroke(2));
-            Rectangle rect = universeView.getAttributes(object).getObjectRectangle();
-            g.drawRect(rect.x,
-                    rect.y,
-                    rect.width,
-                    rect.height);
         }
 
         super.paintComponents(g);
@@ -145,7 +146,6 @@ public class UniverseViewer extends JPanel {
                     shiftY = point.y - attributes.getPosition().y;
 
                     draggedObject = object;
-                    //draggedObjects.add(object);
                     break;
                 }
             }

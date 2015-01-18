@@ -6,6 +6,7 @@
  */
 package com.alumisky.ui.universe.viewer.demo;
 
+import com.alumisky.ui.universe.AbstractUniverseRenderer;
 import com.alumisky.ui.universe.Attributes;
 import com.alumisky.ui.universe.Renderer;
 import com.alumisky.ui.universe.Universe;
@@ -39,7 +40,7 @@ class UniverseFrame extends JFrame {
         }
     }
 
-    class RendererA implements Renderer {
+    class RendererA extends AbstractUniverseRenderer {
 
         public void render(Graphics g, UniverseObject object, Attributes view) {
             g.setColor(Color.BLUE);
@@ -48,7 +49,7 @@ class UniverseFrame extends JFrame {
         }
     }
 
-    class RendererB implements Renderer {
+    class RendererB extends AbstractUniverseRenderer {
 
         public void render(Graphics g, UniverseObject object, Attributes view) {
             g.setColor(Color.RED);
@@ -57,7 +58,7 @@ class UniverseFrame extends JFrame {
         }
     }
 
-    class RendererC implements Renderer {
+    class RendererC extends AbstractUniverseRenderer {
 
         public void render(Graphics g, UniverseObject object, Attributes view) {
             g.setColor(Color.GREEN);
@@ -66,7 +67,7 @@ class UniverseFrame extends JFrame {
         }
     }
 
-    class RendererD implements Renderer {
+    class RendererD extends AbstractUniverseRenderer {
 
         public void render(Graphics g, UniverseObject object, Attributes view) {
             g.setColor(Color.MAGENTA);

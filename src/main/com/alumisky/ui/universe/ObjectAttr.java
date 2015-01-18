@@ -18,8 +18,11 @@ public class ObjectAttr implements Attributes {
     private Point position = new Point(20, 30);
 
     protected int width  = 80;
-    protected int height = 60;
-
+    protected int height = 30;
+    
+    private boolean multilineEnabled =true;
+    private boolean selected =false;
+    
     public ObjectAttr(int width, int height) {
 	this.width = width;
 	this.height = height;
@@ -37,11 +40,36 @@ public class ObjectAttr implements Attributes {
 	this.position = position;
     }
 
+    @Override
     public boolean contains(Point point) {
 	return getObjectRectangle().contains(point);
     }
 
+    @Override
     public Rectangle getObjectRectangle() {
 	return new Rectangle(position.x, position.y, width, height);
+    }
+
+    public boolean isMultilineEnabled() {
+        return multilineEnabled;
+    }
+
+    public void setMultilineEnabled(boolean multilineEnabled) {
+        this.multilineEnabled = multilineEnabled;
+    }           
+
+    @Override
+    public boolean isSelected() {
+        return selected;
+    }
+
+    @Override
+    public void setSelected(boolean value) {
+        selected = value;
+    }
+
+    @Override
+    public void clearTemporaryAttributes() {
+        setSelected(false);
     }
 }

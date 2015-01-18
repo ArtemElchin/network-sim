@@ -6,9 +6,9 @@
  */
 package net.alumisky.simulator.network.app;
 
+import com.alumisky.ui.universe.AbstractUniverseRenderer;
 import com.alumisky.ui.universe.Attributes;
 import com.alumisky.ui.universe.ObjectAttr;
-import com.alumisky.ui.universe.Renderer;
 import com.alumisky.ui.universe.Universe;
 import com.alumisky.ui.universe.UniverseObject;
 import com.alumisky.ui.universe.UniverseView;
@@ -79,7 +79,7 @@ public class TopologyPanel extends JPanel {
     UniverseView universeView1;
     Universe world;
 
-    class RendererA implements Renderer {
+    class RendererA extends AbstractUniverseRenderer {
 
         public void render(Graphics g, UniverseObject object, Attributes view) {
             g.setColor(Color.LIGHT_GRAY);

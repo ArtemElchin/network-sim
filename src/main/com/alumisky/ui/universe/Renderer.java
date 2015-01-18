@@ -7,6 +7,7 @@
 package com.alumisky.ui.universe;
 
 import java.awt.Graphics;
+import java.awt.Shape;
 
 /**
  * 
@@ -21,7 +22,15 @@ public interface Renderer<T extends UniverseObject> {
      * @param object
      * @param view
      */
-    void render(Graphics g, T object, Attributes view);
+    void render(Graphics g, T object, Attributes view);    
+    
+    /**
+     * 
+     * @param object
+     * @param attr
+     * @return 
+     */
+    Shape getObjectShape(T object, Attributes attr);
 }
 
 

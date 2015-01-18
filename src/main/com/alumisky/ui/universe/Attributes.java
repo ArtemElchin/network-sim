@@ -39,5 +39,28 @@ public interface Attributes {
      * 
      * @return
      */
-    Rectangle getObjectRectangle();
+    Rectangle getObjectRectangle();        
+    
+    /**
+     * 
+     * @return 
+     */
+    boolean isSelected();
+    
+    /**
+     * 
+     * @param value 
+     */
+    void setSelected(boolean value);
+    
+    /**
+     * 
+     */
+    void clearTemporaryAttributes();
+    
+    /**
+     * 
+     * @return 
+     */
+    boolean isMultilineEnabled();
 }

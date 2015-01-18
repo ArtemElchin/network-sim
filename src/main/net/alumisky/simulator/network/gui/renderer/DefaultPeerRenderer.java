@@ -6,8 +6,8 @@
  */
 package net.alumisky.simulator.network.gui.renderer;
 
+import com.alumisky.ui.universe.AbstractUniverseRenderer;
 import com.alumisky.ui.universe.Attributes;
-import com.alumisky.ui.universe.Renderer;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -17,7 +17,7 @@ import net.alumisky.simulator.network.gui.PeerUniverseObject;
  *
  * @author Renat Gilmanov
  */
-public class DefaultPeerRenderer implements Renderer<PeerUniverseObject> {
+public class DefaultPeerRenderer extends AbstractUniverseRenderer<PeerUniverseObject> {
 
     @Override
     public void render(Graphics g, PeerUniverseObject object, Attributes view) {

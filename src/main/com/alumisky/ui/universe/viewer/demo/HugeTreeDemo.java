@@ -6,9 +6,9 @@
  */
 package com.alumisky.ui.universe.viewer.demo;
 
+import com.alumisky.ui.universe.AbstractUniverseRenderer;
 import com.alumisky.ui.universe.Attributes;
 import com.alumisky.ui.universe.ObjectAttr;
-import com.alumisky.ui.universe.Renderer;
 import com.alumisky.ui.universe.Universe;
 import com.alumisky.ui.universe.UniverseObject;
 import com.alumisky.ui.universe.UniverseView;
@@ -46,10 +46,10 @@ class UniverseFrame2 extends JFrame {
     UniverseView universeView1;
     Universe world;
     
-    class RendererA implements Renderer {
+    class RendererA extends AbstractUniverseRenderer {
 
         public void render(Graphics g, UniverseObject object, Attributes view) {
-            g.setColor(Color.LIGHT_GRAY);
+            g.setColor((view.isSelected()) ? Color.ORANGE : Color.LIGHT_GRAY);
             Rectangle r = view.getObjectRectangle();
             g.fillRect(r.x, r.y, r.width, r.height);
             g.setColor(Color.BLACK);
@@ -98,11 +98,11 @@ class UniverseFrame2 extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
-    final int WORLD_WIDTH = 1200;
-    final int WORLD_HEIGHT = 1200;
+    final int WORLD_WIDTH = 200;
+    final int WORLD_HEIGHT = 200;
     
      protected void generate() {
-          final int OBJECTS = 100;
+          final int OBJECTS = 22;
           
           for(int i=0; i<OBJECTS; i++) {
               ObjectA a = new ObjectA();
