@@ -158,12 +158,8 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                 
             }
             secondLine=name.substring(gap+1, name.length());
-           // System.out.println("sdf"+secondLine);
-            
-            
-       
-            // totalWidthFirstStr = fm.stringWidth(firstLine);
-             totalWidthSecondStr = fm.stringWidth(secondLine);
+     
+            totalWidthSecondStr = fm.stringWidth(secondLine);
         
             if(totalWidthSecondStr>r.getWidth()) {
                
