@@ -15,6 +15,7 @@ import java.awt.Rectangle;
  * @author Artem.Elchin
  */
 public interface Attributes {
+     boolean multilineSupport=true;
 
     /**
      *
@@ -39,6 +40,7 @@ public interface Attributes {
      * 
      * @return
      */
+
     Rectangle getObjectRectangle();        
     
     /**

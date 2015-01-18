@@ -14,7 +14,9 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+
 import java.awt.Rectangle;
+
 import java.awt.RenderingHints;
 import java.awt.geom.RoundRectangle2D;
 import net.alumisky.simulator.network.gui.PeerUniverseObject;
@@ -26,17 +28,17 @@ import net.alumisky.simulator.network.gui.PeerUniverseObject;
 public class DefaultRenderer implements Renderer<PeerUniverseObject> {
 
     final int arc = 25;
-    protected int width  = 80;
-    protected int height = 30;    
-        
+    protected int width = 80;
+    protected int height = 30;
+
     @Override
     public RoundRectangle2D getObjectShape(PeerUniverseObject object, Attributes attr) {
-        Rectangle r = attr.getObjectRectangle();        
+        Rectangle r = attr.getObjectRectangle();
         RoundRectangle2D rect = new RoundRectangle2D.Double(r.x, r.y, r.width, r.height, arc, arc);
-        
+
         return rect;
     }
-    
+
     @Override
     public void render(Graphics g, PeerUniverseObject object, Attributes attr) {
         Graphics2D g1 = (Graphics2D) g;
@@ -58,9 +60,9 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject> {
         int totalWidth = fm.stringWidth(text);
 
         Color color = (attr.isSelected()) ? Color.BLUE : Color.BLACK;
-        
-        if (attr.isMultilineEnabled() 
-                && text.contains(" ") 
+
+        if (attr.isMultilineEnabled()
+                && text.contains(" ")
                 && totalWidth > r.getWidth()) {
 
             g.fillRoundRect((int) r.getX(),
@@ -113,19 +115,19 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject> {
             g.setColor(Color.red);
             g1.setStroke(new BasicStroke(2));
             g.drawString(name, (int) r.getX() + x, (int) r.getY() + y);
-            g.drawRoundRect((int) r.getX(), (int) r.getY(), 
-                    (int) r.getWidth(), 
-                    (int) r.getHeight(), 
-                    (int) r.getArcWidth(), 
+            g.drawRoundRect((int) r.getX(), (int) r.getY(),
+                    (int) r.getWidth(),
+                    (int) r.getHeight(),
+                    (int) r.getArcWidth(),
                     (int) r.getArcHeight());
             g.setColor(Color.PINK);
 
             g1.setStroke(new BasicStroke(3));
-            g.drawRoundRect((int) r.getX() - 2, 
-                    (int) r.getY() - 2, 
-                    (int) r.getWidth() + 4, 
-                    (int) r.getHeight() + 4, 
-                    (int) r.getArcWidth() + 2, 
+            g.drawRoundRect((int) r.getX() - 2,
+                    (int) r.getY() - 2,
+                    (int) r.getWidth() + 4,
+                    (int) r.getHeight() + 4,
+                    (int) r.getArcWidth() + 2,
                     (int) r.getArcHeight() + 2);
 
         } else if (object.disableMode) {
@@ -239,5 +241,4 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject> {
 
         }
     }
-
 }
