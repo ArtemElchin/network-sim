@@ -40,17 +40,8 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
            
             
              
-             String s="fajafn";
-             //String s="BLJJJ";
-             //String s="fadfd fdadf fdafa daf";
-             //String s="fdafjafjdafdf fadfa fadfa fdaf";
-             //String s="fdafasfdafadfsdffsda";
-            // String s="JNLDJFJFNJSFf fsddfa fadf fa ";
-             //String s="BHKBJHSF SFJBLJSFFBSSJFB FJSNF";
-             //String s="fajaf fadfafdsafadfasf";
-             //String s="fda    ad  d fa dsf ";
+             String s=object.getName();
              String tmp;
-             
              FontMetrics fm = g.getFontMetrics();
              int totalWidth = fm.stringWidth(s);
              int tmpWidth=totalWidth;
@@ -72,7 +63,7 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
             }
             else{
                 g.fillRoundRect((int)r.getX(), (int)r.getY(), (int)r.getWidth(), (int)r.getHeight(),(int)r.getArcWidth(),(int)r.getArcHeight());
-                System.out.println("fdsf");
+                
                 g.setColor(Color.BLACK);
                 renderOneLine(g,s,r,object);
             
@@ -149,8 +140,8 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
         FontMetrics fm = g.getFontMetrics();
         Graphics2D g1 = (Graphics2D) g;
         int totalWidth = fm.stringWidth(name);
-        int totalWidthFirstStr, totalWidthSecondStr;
-        
+        int totalWidthSecondStr;
+        int x,y;
         
         String firstLine="", secondLine="", tmpName=name;
         
@@ -167,8 +158,8 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject>{
                 
             }
             secondLine=name.substring(gap+1, name.length());
-            System.out.println("sdf"+secondLine);
-            int x,y;
+           // System.out.println("sdf"+secondLine);
+            
             
        
             // totalWidthFirstStr = fm.stringWidth(firstLine);
