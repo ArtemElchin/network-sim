@@ -54,7 +54,7 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject> {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g1.setRenderingHints(rh);
 
-        String text = object.getName();
+        String text = object.getName()+" s df  sd fa a f";
 
         FontMetrics fm = g.getFontMetrics();
         int totalWidth = fm.stringWidth(text);
@@ -85,6 +85,10 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject> {
             g.setColor(Color.BLACK);
 
             renderMultiline(g, text, r, object);
+            if(attr.isSelected()){
+                drawSelected(g,r);
+               
+            }
           
         } else {
             g.fillRoundRect((int) r.getX(),
@@ -93,15 +97,20 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject> {
                     (int) r.getHeight(),
                     (int) r.getArcWidth(),
                     (int) r.getArcHeight());
-
+ 
             g.setColor(Color.BLACK);
             renderOneLine(g, text, r, object);
+            if(attr.isSelected()){
+                drawSelected(g,r);
+            }
         }
         
-       if(attr.isSelected())
-        {
-           
-            g.setColor(Color.BLUE);
+       
+    }
+    public void drawSelected(Graphics g,  RoundRectangle2D r)
+    {
+        Graphics2D g1 = (Graphics2D) g;
+        g.setColor(Color.BLUE);
             g1.setStroke(new BasicStroke(2));
             
             g.drawRoundRect((int)r.getX(),
@@ -120,9 +129,8 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject> {
                     (int)r.getHeight()+4,
                     (int)r.getArcWidth()+2,
                     (int)r.getArcHeight()+2);
-        }
+            g1.setStroke(new BasicStroke(1));
     }
-
     public void renderOneLine(Graphics g, String text, RoundRectangle2D r, PeerUniverseObject object) {
         FontMetrics fm = g.getFontMetrics();
         Graphics2D g1 = (Graphics2D) g;
@@ -247,7 +255,7 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject> {
                         (int)r.getHeight()+4,
                         (int)r.getArcWidth()+2,
                         (int)r.getArcHeight()+2);
-            
+          
             }
             else if(object.disableMode){
                 g.setColor(Color.LIGHT_GRAY);
@@ -256,7 +264,7 @@ public class DefaultRenderer implements Renderer<PeerUniverseObject> {
                 BasicStroke dashedStroke=new BasicStroke(1, BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER,10, dash, 0);
                 g1.fill(dashedStroke.createStrokedShape(r));
                
-                
+               
               
             }
             else{

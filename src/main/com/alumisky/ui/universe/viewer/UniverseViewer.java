@@ -92,6 +92,7 @@ public class UniverseViewer extends JPanel {
 
         for (UniverseObject object : draggedObjects) {        
             universeView.getAttributes(object).setSelected(true);
+            
         }
         
         // draw all objects
@@ -101,6 +102,7 @@ public class UniverseViewer extends JPanel {
             if (rendererMap.containsKey(object.getType())) {
                 Renderer renderer = (Renderer) rendererMap.get(object.getType());
                 renderer.render(g, object, attributes);
+                
             }
             
             // all temporary attributes like selection should be removed
